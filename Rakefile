@@ -1,4 +1,4 @@
-require 'FileUtils'
+require 'fileutils'
 
 desc 'Setup the testing env'
 task :tom_setup do
