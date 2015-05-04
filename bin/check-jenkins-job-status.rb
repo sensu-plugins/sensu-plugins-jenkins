@@ -32,6 +32,9 @@
 require 'sensu-plugin/check/cli'
 require 'jenkins_api_client'
 
+#
+# Jenkins Job Check
+#
 class JenkinsJobChecker < Sensu::Plugin::Check::CLI
   option :server_api_url,
          description: 'hostname running Jenkins API',

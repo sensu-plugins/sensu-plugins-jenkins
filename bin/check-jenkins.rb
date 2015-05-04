@@ -29,6 +29,9 @@
 require 'sensu-plugin/check/cli'
 require 'rest-client'
 
+#
+# Jenkins Metrics Pin Pong Check
+#
 class JenkinsMetricsPingPongChecker < Sensu::Plugin::Check::CLI
   option :server,
          description: 'Jenkins Host',

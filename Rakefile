@@ -1,9 +1,9 @@
 require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
-require 'yard'
-require 'github/markup'
 require 'rubocop/rake_task'
+require 'github/markup'
 require 'redcarpet'
+require 'yard'
 require 'yard/rake/yardoc_task'
 
 desc 'Don\'t run Rubocop for unsupported versions'
@@ -18,7 +18,7 @@ end
 YARD::Rake::YardocTask.new do |t|
   OTHER_PATHS = %w()
   t.files = ['lib/**/*.rb', 'bin/**/*.rb', OTHER_PATHS]
-  t.options = %w(--markup-provider=redcarpet --markup=markdown --main=README.md --files CHANGELOG.md)
+  t.options = %w(--markup-provider=redcarpet --markup=markdown --main=README.md --files CHANGELOG.md,CONTRIBUTING.md)
 end
 
 RuboCop::RakeTask.new
@@ -31,5 +31,27 @@ desc 'Make all plugins executable'
 task :make_bin_executable do
   `chmod -R +x bin/*`
 end
+
+desc 'Setup the testing env'
+task :tom_setup do
+  FileUtils.mkdir(File.join(Dir.home, 'tmp'))
+  FileUtils.chdir(File.join(Dir.home, 'tmp'))
+  `git clone --depth 1 git@github.com:sensu-plugins/tom_servo.git`
+  FileUtils.chdir('tom_servo')
+  rake setup:setup_env
+end
+
+desc 'Run the testing env'
+task :tom_test do
+  FileUtils.chdir(File.join(Dir.home, 'tmp', 'tom_servo'))
+  rake testing:execute_all_tests
+end
+
+desc 'Deployment'
+task :tom_deploy do
+  FileUtils.chdir(File.join(Dir.home, 'tmp', 'tom_servo'))
+  rake deploy:deploy
+end
+
 
 task default: args

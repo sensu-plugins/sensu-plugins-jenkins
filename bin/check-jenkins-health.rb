@@ -31,6 +31,9 @@ require 'sensu-plugin/check/cli'
 require 'rest-client'
 require 'json'
 
+#
+# Jenkins Metrics Health Check
+#
 class JenkinsMetricsHealthChecker < Sensu::Plugin::Check::CLI
   option :server,
          description: 'Jenkins Host',

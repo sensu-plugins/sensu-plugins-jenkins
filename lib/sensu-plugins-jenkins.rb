@@ -1,7 +1,14 @@
+require 'sensu-plugins-jenkins/version'
+
+# Load the defaults
+
 #
-# Set gem version
+# Default class
 #
 module SensuPluginsJenkins
-  # Gem version
-  VERSION = '0.0.1.alpha.1'
+  class << self
+  end
+
+  class << self
+  end
 end

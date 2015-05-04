@@ -34,6 +34,9 @@ require 'rest-client'
 require 'socket'
 require 'json'
 
+#
+# Jenkins JQS Metrics
+#
 class JenkinsJQSMetrics < Sensu::Plugin::Metric::CLI::Graphite
   SKIP_ROOT_KEYS = %w(version)
 
