@@ -41,7 +41,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'rest-client',         '1.8.0'
   s.add_runtime_dependency 'jenkins_api_client',  '1.3.0'
 
-
   s.add_development_dependency 'codeclimate-test-reporter', '~> 0.4'
   s.add_development_dependency 'rubocop',                   '~> 0.30'
   s.add_development_dependency 'rspec',                     '~> 3.1'
