@@ -41,6 +41,12 @@ class JenkinsMetricsHealthChecker < Sensu::Plugin::Check::CLI
          long: '--server SERVER',
          default: 'localhost'
 
+  option :port,
+         description: 'Jenkins Port',
+         short: 'p PORT',
+         long: '--port PORT',
+         default: '8080'
+
   option :uri,
          description: 'Jenkins Metrics Healthcheck URI',
          short: '-u URI',
@@ -48,7 +54,7 @@ class JenkinsMetricsHealthChecker < Sensu::Plugin::Check::CLI
          default: '/metrics/currentUser/healthcheck'
 
   def run
-    r = RestClient::Resource.new("http://#{config[:server]}:8080#{config[:uri]}", timeout: 5).get
+    r = RestClient::Resource.new("http://#{config[:server]}:#{config[:port]}#{config[:uri]}", timeout: 5).get
     if r.code == 200
       healthchecks = JSON.parse(r)
       healthchecks.each do |_, healthcheck_hash_value|
