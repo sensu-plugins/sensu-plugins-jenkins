@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.date                   = Date.today.to_s
   s.description            = 'Sensu plugins for jenkins'
   s.email                  = '<sensu-users@googlegroups.com>'
-  s.executables            = Dir.glob("bin/**/*").map { |file| File.basename(file) }
+  s.executables            = Dir.glob('bin/**/*').map { |file| File.basename(file) }
   s.files                  = Dir.glob('{bin,lib}/**/*') + %w(LICENSE README.md CHANGELOG.md)
   s.homepage               = 'https://github.com/sensu-plugins/sensu-plugins-jenkins'
   s.license                = 'MIT'
