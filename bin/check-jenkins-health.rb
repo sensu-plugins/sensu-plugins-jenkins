@@ -53,8 +53,16 @@ class JenkinsMetricsHealthChecker < Sensu::Plugin::Check::CLI
          long: '--uri URI',
          default: '/metrics/currentUser/healthcheck'
 
+  option :https,
+         short: '-h',
+         long: '--https',
+         boolean: true,
+         description: 'Enabling https connections',
+         default: false
+
   def run
-    r = RestClient::Resource.new("http://#{config[:server]}:#{config[:port]}#{config[:uri]}", timeout: 5).get
+    https ||= config[:https] ? 'https' : 'http'
+    r = RestClient::Resource.new("#{https}://#{config[:server]}:#{config[:port]}#{config[:uri]}", timeout: 5).get
     if r.code == 200
       healthchecks = JSON.parse(r)
       healthchecks.each do |_, healthcheck_hash_value|
