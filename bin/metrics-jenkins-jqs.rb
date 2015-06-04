@@ -48,7 +48,7 @@ class JenkinsJQSMetrics < Sensu::Plugin::Metric::CLI::Graphite
 
   option :server,
          description: 'Jenkins Host',
-         short: '-s SERVER',
+         short: '-S SERVER',
          long: '--server SERVER',
          default: 'localhost'
 
