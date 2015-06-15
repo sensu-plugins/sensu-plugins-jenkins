@@ -10,6 +10,7 @@
 ## Functionality
 
 ## Files
+ * bin/check-jenkins-build-time.rb
  * bin/check-jenkins-health.rb
  * bin/check-jenkins-job-status.rb
  * bin/check-jenkins.rb
