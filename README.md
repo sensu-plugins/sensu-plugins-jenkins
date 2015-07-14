@@ -1,6 +1,6 @@
 ## Sensu-Plugins-jenkins
 
-[![Build Status](https://travis-ci.org/sensu-plugins/sensu-plugins-jenkins.svg?branch=master)](https://travis-ci.org/sensu-plugins/sensu-plugins-jenkins)
+[ ![Build Status](https://travis-ci.org/sensu-plugins/sensu-plugins-jenkins.svg?branch=master)](https://travis-ci.org/sensu-plugins/sensu-plugins-jenkins)
 [![Gem Version](https://badge.fury.io/rb/sensu-plugins-jenkins.svg)](http://badge.fury.io/rb/sensu-plugins-jenkins)
 [![Code Climate](https://codeclimate.com/github/sensu-plugins/sensu-plugins-jenkins/badges/gpa.svg)](https://codeclimate.com/github/sensu-plugins/sensu-plugins-jenkins)
 [![Test Coverage](https://codeclimate.com/github/sensu-plugins/sensu-plugins-jenkins/badges/coverage.svg)](https://codeclimate.com/github/sensu-plugins/sensu-plugins-jenkins)
