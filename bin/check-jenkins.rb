@@ -60,7 +60,7 @@ class JenkinsMetricsPingPongChecker < Sensu::Plugin::Check::CLI
 
   def run
     https ||= config[:https] ? 'https' : 'http'
-    r = RestClient::Resource.new("#{https}://#{config[:server]}:#{config[:port]}#{config[:uri]}", timeout: 5).get
+    r = RestClient::Resource.new("#{https}://#{config[:server]}:#{config[:port]}/#{config[:uri]}", timeout: 5).get
     if r.code == 200 && r.body.include?('pong')
       ok 'Jenkins Service is up'
     else
