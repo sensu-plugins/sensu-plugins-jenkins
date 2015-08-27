@@ -5,6 +5,10 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [Unreleased][unreleased]
 
+### Added
+- PR #5
+    - Fixed default uri for ping check to include leading forward-slash.
+
 ## [0.0.4] - 2015-07-14
 ### Changed
 - updated sensu-plugin gem to 1.2.0

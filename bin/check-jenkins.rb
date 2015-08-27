@@ -49,7 +49,7 @@ class JenkinsMetricsPingPongChecker < Sensu::Plugin::Check::CLI
          description: 'Jenkins Metrics Ping URI',
          short: '-u URI',
          long: '--uri URI',
-         default: 'metrics/currentUser/ping'
+         default: '/metrics/currentUser/ping'
 
   option :https,
          short: '-h',
