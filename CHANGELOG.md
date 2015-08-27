@@ -5,6 +5,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [Unreleased][unreleased]
 
+## [0.0.5] - 2015-08-24
 ### Added
 - PR #5
     - Fixed default uri for ping check to include leading forward-slash.
