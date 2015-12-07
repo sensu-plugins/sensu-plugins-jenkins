@@ -57,7 +57,12 @@ class JenkinsBuildTime < Sensu::Plugin::Check::CLI
     jobs = parse_jobs_param
 
     jobs.each do |job_name, time_expression|
-      last_build_time = build_time(job_name, last_successful_build_number(job_name))
+      begin
+        last_build_time = build_time(job_name, last_successful_build_number(job_name))
+      rescue
+         critical "Error looking up Jenkins job: #{job_name}"
+      end
+
       if time_expression_is_window?(time_expression)
         unless time_within_window?(last_build_time,
                                    parse_window_start(time_expression),
