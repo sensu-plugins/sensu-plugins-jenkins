@@ -70,5 +70,8 @@ class JenkinsMetricsPingPongChecker < Sensu::Plugin::Check::CLI
     critical 'Jenkins Service is not responding'
   rescue RestClient::RequestTimeout
     critical 'Jenkins Service Connection timed out'
+  rescue
+    critical "Couldn't get: '#{testurl}' is the server option set correctly and the Jenkins metrics plugin installed?"
   end
+
 end
