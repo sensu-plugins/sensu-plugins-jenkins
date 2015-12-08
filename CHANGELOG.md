@@ -5,6 +5,10 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [Unreleased][unreleased]
 
+## [0.0.6] - 2015-12-08
+### Added
+- Enhanced error messages in particular when the check configuration is wrong 
+
 ## [0.0.5] - 2015-08-24
 ### Added
 - PR #5

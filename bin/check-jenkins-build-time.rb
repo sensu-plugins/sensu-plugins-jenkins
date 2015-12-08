@@ -60,7 +60,7 @@ class JenkinsBuildTime < Sensu::Plugin::Check::CLI
       begin
         last_build_time = build_time(job_name, last_successful_build_number(job_name))
       rescue
-         critical "Error looking up Jenkins job: #{job_name}"
+        critical "Error looking up Jenkins job: #{job_name}"
       end
 
       if time_expression_is_window?(time_expression)

@@ -73,5 +73,4 @@ class JenkinsMetricsPingPongChecker < Sensu::Plugin::Check::CLI
   rescue
     critical "Couldn't get: '#{testurl}' is the server option set correctly and the Jenkins metrics plugin installed?"
   end
-
 end
