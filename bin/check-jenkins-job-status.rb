@@ -85,6 +85,8 @@ class JenkinsJobChecker < Sensu::Plugin::Check::CLI
 
   def job_status(job_name)
     jenkins_api_client.job.get_current_build_status(job_name)
+  rescue
+    critical "Error looking up Jenkins job: #{job_name}"
   end
 
   def failed_jobs
