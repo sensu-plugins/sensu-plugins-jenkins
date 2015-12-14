@@ -8,6 +8,9 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 ## [0.0.6] - 2015-12-08
 ### Added
 - Enhanced error messages in particular when the check configuration is wrong 
+- Update dependent jenkins-api version to 1.4.2
+- Changed check-jenkins-job-status.rb and check-jenkins-build-time.rb to use server_url to allow
+  passing credentials
 
 ## [0.0.5] - 2015-08-24
 ### Added
