@@ -66,7 +66,7 @@ class JenkinsJobChecker < Sensu::Plugin::Check::CLI
 
   def jenkins_api_client
     @jenkins_api_client ||= JenkinsApi::Client.new(
-      server_ip: config[:server_api_url],
+      server_url: config[:server_api_url],
       log_level: config[:client_log_level].to_i
     )
   end
