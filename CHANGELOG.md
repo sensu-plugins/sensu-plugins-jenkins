@@ -5,7 +5,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [Unreleased][unreleased]
 
-## [0.0.6] - 2015-12-08
+## [0.1.0] - 2015-12-14
 ### Added
 - Enhanced error messages in particular when the check configuration is wrong 
 - Update dependent jenkins-api version to 1.4.2
