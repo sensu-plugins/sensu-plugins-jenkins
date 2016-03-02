@@ -115,15 +115,15 @@ class JenkinsBuildTime < Sensu::Plugin::Check::CLI
     time_after_window_start_yesterday = (window_start - ONE_DAY) < time
     time_in_window_yesterday = time_after_window_start_yesterday && (window_end - ONE_DAY) > time
 
-    if @now < window_end && @now > window_start # we are in the window, so we will accept today or yesterday
-      time_ok = (time_in_window_today || time_in_window_yesterday)
-    elsif @now < window_end
-      # we are before the window, so we only accept yesterday
-      time_ok = time_in_window_yesterday
-    else
-      # we are after the window, so we only accept today
-      time_ok = time_in_window_today
-    end
+    time_ok = if @now < window_end && @now > window_start # we are in the window, so we will accept today or yesterday
+                (time_in_window_today || time_in_window_yesterday)
+              elsif @now < window_end
+                # we are before the window, so we only accept yesterday
+                time_in_window_yesterday
+              else
+                # we are after the window, so we only accept today
+                time_in_window_today
+              end
     time_ok
   end
 
@@ -144,7 +144,7 @@ class JenkinsBuildTime < Sensu::Plugin::Check::CLI
     job_param = config[:jobs].split(',')
     job_param.each do |j|
       name, time_expression = j.split('=')
-      fail "Jobs mut be expressed as JOB_NAME=TIME_EXPRESSION. Invalid parameter: '#{j}'" if time_expression.nil?
+      raise "Jobs mut be expressed as JOB_NAME=TIME_EXPRESSION. Invalid parameter: '#{j}'" if time_expression.nil?
       jobs[name] = time_expression
     end
     jobs

@@ -38,7 +38,7 @@ require 'json'
 # Jenkins JQS Metrics
 #
 class JenkinsJQSMetrics < Sensu::Plugin::Metric::CLI::Graphite
-  SKIP_ROOT_KEYS = %w(version)
+  SKIP_ROOT_KEYS = %w(version).freeze
 
   option :scheme,
          description: 'Metric naming scheme',
