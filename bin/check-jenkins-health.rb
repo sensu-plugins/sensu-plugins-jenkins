@@ -4,6 +4,7 @@
 #
 # DESCRIPTION:
 #   This plugin checks that the Jenkins Metrics healthcheck is healthy throughout
+#   See the Jenkins Metric plugin: https://wiki.jenkins-ci.org/display/JENKINS/Metrics+Plugin
 #
 # OUTPUT:
 #   plain text
