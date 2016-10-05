@@ -59,7 +59,7 @@ class JenkinsJobChecker < Sensu::Plugin::Check::CLI
          long: '--username USERNAME',
          required: false
 
-    option :password,
+  option :password,
          description: 'Password for Jenkins instance',
          short: '-p PASSWORD',
          long: '--password PASSWORD',
