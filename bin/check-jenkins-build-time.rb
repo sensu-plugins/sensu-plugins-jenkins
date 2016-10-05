@@ -50,6 +50,18 @@ class JenkinsBuildTime < Sensu::Plugin::Check::CLI
          long: '--jobs JOB_NAME=TIME_EXPRESSION,[JOB_NAME=TIME_EXPRESSION]',
          required: true
 
+  option :username,
+         description: 'Username for Jenkins instance',
+         short: '-U USERNAME',
+         long: '--username USERNAME',
+         required: false
+
+    option :password,
+         description: 'Password for Jenkins instance',
+         short: '-p PASSWORD',
+         long: '--password PASSWORD',
+         required: false
+
   def run
     @now = Time.now
     critical_jobs = []
@@ -84,7 +96,7 @@ class JenkinsBuildTime < Sensu::Plugin::Check::CLI
   private
 
   def jenkins
-    @jenkins ||= JenkinsApi::Client.new(server_url: config[:url], log_level: 3)
+    @jenkins ||= JenkinsApi::Client.new(server_url: config[:url], username: config[:username], password: config[:password], log_level: 3)
   end
 
   def last_successful_build_number(job_name)

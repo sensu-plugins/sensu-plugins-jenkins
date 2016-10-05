@@ -20,7 +20,6 @@
 #
 # NOTES:
 #   #YELLOW
-#   add authorization options
 #   add url to job's log for CRITICAL state
 #
 # LICENSE:
@@ -54,6 +53,18 @@ class JenkinsJobChecker < Sensu::Plugin::Check::CLI
          long: '--verbose CLIENT-LOG-LEVEL',
          default: 3
 
+  option :username,
+         description: 'Username for Jenkins instance',
+         short: '-U USERNAME',
+         long: '--username USERNAME',
+         required: false
+
+    option :password,
+         description: 'Password for Jenkins instance',
+         short: '-p PASSWORD',
+         long: '--password PASSWORD',
+         required: false
+
   def run
     if failed_jobs.any?
       critical "Jobs reporting failure: #{failed_jobs_names}"
@@ -67,7 +78,8 @@ class JenkinsJobChecker < Sensu::Plugin::Check::CLI
   def jenkins_api_client
     @jenkins_api_client ||= JenkinsApi::Client.new(
       server_url: config[:server_api_url],
-      log_level: config[:client_log_level].to_i
+      log_level: config[:client_log_level].to_i,
+      username: config[:username], password: config[:password]
     )
   end
 
