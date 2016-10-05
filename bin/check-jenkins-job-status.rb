@@ -60,10 +60,11 @@ class JenkinsJobChecker < Sensu::Plugin::Check::CLI
          required: false
 
   option :password,
-         description: 'Password for Jenkins instance',
+         description: "Password for Jenkins instance. Either set ENV['JENKINS_PASS'] or provide it as an option",
          short: '-p PASSWORD',
          long: '--password PASSWORD',
-         required: false
+         required: false,
+         default: ENV['JENKINS_PASS']
 
   def run
     if failed_jobs.any?
