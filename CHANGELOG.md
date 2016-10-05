@@ -4,7 +4,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
-- If a job is in progress, use the result of the last completed build instead
+### Added
+- Ruby 2.3.0 support
+
+### Removed
+- Ruby 1.9.3 support
+
+### Changed
+- check-jenkins-job-status.rb: if a job is in progress, use the result of the last completed build instead
+- Update to rubocop 0.40 and cleanup
+- Relax `sensu-plugin` dependency
 
 ## [0.1.0] - 2015-12-14
 ### Added
