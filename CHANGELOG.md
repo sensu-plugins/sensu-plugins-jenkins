@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+### Changed
+- additional information given on errors in check-jenkins-health.rb
 
 ## [1.1.0] - 2016-10-06
 ### Added
@@ -23,7 +25,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [0.1.0] - 2015-12-14
 ### Added
-- Enhanced error messages in particular when the check configuration is wrong 
+- Enhanced error messages in particular when the check configuration is wrong
 - Update dependent jenkins-api version to 1.4.2
 - Changed check-jenkins-job-status.rb and check-jenkins-build-time.rb to use server_url to allow
   passing credentials
