@@ -66,18 +66,18 @@ class JenkinsMetricsHealthChecker < Sensu::Plugin::Check::CLI
     r = RestClient::Resource.new("#{https}://#{config[:server]}:#{config[:port]}#{config[:uri]}", timeout: 5).get
     if r.code == 200
       healthchecks = JSON.parse(r)
-      healthchecks.each do |_, healthcheck_hash_value|
+      healthchecks.each do |healthcheck, healthcheck_hash_value|
         if healthcheck_hash_value['healthy'] != true
-          critical 'Jenkins Health Parameters not OK'
+          critical "Jenkins Health Parameters not OK: #{r}, #{healthcheck}"
         end
       end
       ok 'Jenkins Health Parameters are OK'
     else
-      critical 'Jenkins Service is not responding'
+      critical "Jenkins Service is not replying with a 200 response:#{r.code}, #{r.body}"
     end
-  rescue Errno::ECONNREFUSED
-    critical 'Jenkins Service is not responding'
-  rescue RestClient::RequestTimeout
-    critical 'Jenkins Service Connection timed out'
+  rescue Errno::ECONNREFUSED => e
+    critical "Jenkins Service is not responding: #{e}"
+  rescue RestClient::RequestTimeout => e
+    critical "Jenkins Service Connection timed out: #{e}"
   end
 end
