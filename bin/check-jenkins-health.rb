@@ -61,9 +61,16 @@ class JenkinsMetricsHealthChecker < Sensu::Plugin::Check::CLI
          description: 'Enabling https connections',
          default: false
 
+  option :timeout,
+         short: '-t SECS',
+         long: '--timeout SECS',
+         description: 'Request timeout in seconds',
+         proc: proc(&:to_i),
+         default: 5
+
   def run
     https ||= config[:https] ? 'https' : 'http'
-    r = RestClient::Resource.new("#{https}://#{config[:server]}:#{config[:port]}#{config[:uri]}", timeout: 5).get
+    r = RestClient::Resource.new("#{https}://#{config[:server]}:#{config[:port]}#{config[:uri]}", timeout: config[:timeout]).get
     if [200, 500].include? r.code
       healthchecks = JSON.parse(r)
       healthchecks.each do |healthcheck, healthcheck_hash_value|
@@ -78,6 +85,6 @@ class JenkinsMetricsHealthChecker < Sensu::Plugin::Check::CLI
   rescue Errno::ECONNREFUSED => e
     critical "Jenkins Service is not responding: #{e}"
   rescue RestClient::RequestTimeout => e
-    critical "Jenkins Service Connection timed out: #{e}"
+    critical "Jenkins Service Connection timed out after #{config[:timeout]} seconds: #{e}"
   end
 end
