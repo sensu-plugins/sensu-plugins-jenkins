@@ -64,16 +64,16 @@ class JenkinsMetricsHealthChecker < Sensu::Plugin::Check::CLI
   def run
     https ||= config[:https] ? 'https' : 'http'
     r = RestClient::Resource.new("#{https}://#{config[:server]}:#{config[:port]}#{config[:uri]}", timeout: 5).get
-    if r.code == 200
+    if [200, 500].include? r.code
       healthchecks = JSON.parse(r)
       healthchecks.each do |healthcheck, healthcheck_hash_value|
         if healthcheck_hash_value['healthy'] != true
-          critical "Jenkins Health Parameters not OK: #{r}, #{healthcheck}"
+          critical "Jenkins health check '#{healthcheck}' reported unhealthy state. Message: #{healthcheck_hash_value['message']}"
         end
       end
       ok 'Jenkins Health Parameters are OK'
     else
-      critical "Jenkins Service is not replying with a 200 response:#{r.code}, #{r.body}"
+      critical "Jenkins Service is replying with status code #{r.code}. Body: #{r.body}"
     end
   rescue Errno::ECONNREFUSED => e
     critical "Jenkins Service is not responding: #{e}"
