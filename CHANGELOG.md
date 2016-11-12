@@ -4,7 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
-### Changed
+### Added
 - Additional information given on errors in check-jenkins-health.rb
 - Add configuration option for timeout in check-jenkins-health.rb
 
