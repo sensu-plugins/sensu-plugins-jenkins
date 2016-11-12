@@ -5,7 +5,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [Unreleased]
 
-## [1.2.0] - 2016-11011
+## [1.2.0] - 2016-11-11
 ### Added
 - Additional information given on errors in check-jenkins-health.rb
 - Add configuration option for timeout in check-jenkins-health.rb
