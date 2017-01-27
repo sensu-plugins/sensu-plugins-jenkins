@@ -77,7 +77,7 @@ class JenkinsJobChecker < Sensu::Plugin::Check::CLI
   def run
     if failed_jobs.any?
       critical "Jobs reporting failure: #{failed_job_names}, jobs reported as unstable: #{unstable_job_names}"
-    elsif unstable_jobs.any? and config[:include_warnings]
+    elsif unstable_jobs.any? && config[:include_warnings]
       warning "Jobs reported as unstable: #{unstable_job_names}"
     else
       ok 'All queried jobs report success'
@@ -95,14 +95,15 @@ class JenkinsJobChecker < Sensu::Plugin::Check::CLI
   end
 
   def jobs_statuses
-    @job_listing ||= if config[:job_list] =~ /\^/
-      jenkins_api_client.job.list(config[:job_list]).reduce({}) do |listing, job_name| # rubocop:disable Style/EachWithObject
-        listing[job_name] = job_status(job_name)
-        listing
+    @job_listing ||=
+      if config[:job_list] =~ /\^/
+        jenkins_api_client.job.list(config[:job_list]).reduce({}) do |listing, job_name| # rubocop:disable Style/EachWithObject
+          listing[job_name] = job_status(job_name)
+          listing
+        end
+      else
+        { config[:job_list] => job_status(config[:job_list]) }
       end
-    else
-      { config[:job_list] => job_status(config[:job_list]) }
-    end
   end
 
   def job_status(job_name)
