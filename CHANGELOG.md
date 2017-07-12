@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+### Added
+- Testing on Ruby 2.4.1
+
 ## [1.3.0] - 2017-05-04
 ### Added
 - Additional parameter -w to report unstable jobs as a Sensu warning
