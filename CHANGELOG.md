@@ -7,6 +7,9 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 ### Added
 - Add Ruby 2.4.1 testing
 
+### Fixed
+- lock dependency on `rb-readline` to remove deprecation warnings about fixnum (@majormoses)
+
 ## [1.3.0] - 2017-05-04
 ### Added
 - Additional parameter -w to report unstable jobs as a Sensu warning
