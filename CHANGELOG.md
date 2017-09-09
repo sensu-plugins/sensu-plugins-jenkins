@@ -1,7 +1,8 @@
-#Change Log
+# Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
+This CHANGELOG follows the format listed at [Our CHANGELOG Guidelines](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md).
+Which is based on [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
 ### Added
@@ -9,6 +10,9 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ### Fixed
 - lock dependency on `rb-readline` to remove deprecation warnings about fixnum (@majormoses)
+
+### Changed
+- update changelog format location (@majormoses)
 
 ## [1.3.0] - 2017-05-04
 ### Added
