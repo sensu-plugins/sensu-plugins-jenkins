@@ -71,10 +71,33 @@ class JenkinsMetrics < Sensu::Plugin::Metric::CLI::Graphite
          description: 'Enabling https connections',
          default: false
 
+  option :timeout,
+         short: '-t SECONDS',
+         long: '--timeout SECONDS',
+         description: 'Timeout for REST request',
+         proc: proc(&:to_i),
+         default: 10
+
+  option :report_request_duration,
+         long: '--[no-]report-request-duration',
+         boolean: true,
+         description: 'Report the duration of the REST request',
+         default: true
+
+  def report_request_duration
+    return unless config[:report_request_duration]
+    @stop ||= DateTime.now
+    ms = ((@stop - @start) * 1000 * 24 * 60 * 60).to_i
+    output("#{config[:scheme]}.request.duration", ms)
+  end
+
   def run
+    @start = DateTime.now
+    @stop = nil
     begin
       https ||= config[:https] ? 'https' : 'http'
-      r = RestClient::Resource.new("#{https}://#{config[:server]}:#{config[:port]}#{config[:uri]}", timeout: 5).get
+      r = RestClient::Resource.new("#{https}://#{config[:server]}:#{config[:port]}#{config[:uri]}", timeout: config[:timeout]).get
+      @stop = DateTime.now
       all_metrics = JSON.parse(r)
       metric_groups = all_metrics.keys - SKIP_ROOT_KEYS
       metric_groups.each do |metric_groups_key|
@@ -87,9 +110,13 @@ class JenkinsMetrics < Sensu::Plugin::Metric::CLI::Graphite
       end
       ok
     rescue Errno::ECONNREFUSED
-      critical 'Jenkins is not responding'
+      STDERR.write "Jenkins is not responding\n"
+      critical
     rescue RestClient::RequestTimeout
-      critical 'Jenkins Connection timed out'
+      STDERR.write "Jenkins Connection timed out\n"
+      critical
+    ensure
+      report_request_duration
     end
     ok
   end

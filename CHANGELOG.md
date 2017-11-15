@@ -7,9 +7,11 @@ Which is based on [Keep A Changelog](http://keepachangelog.com/)
 ## [Unreleased]
 ### Added
 - Add Ruby 2.4.1 testing
+- metrics-jenkins.rb: Add --timeout parameter + report of the request duration
 
 ### Fixed
 - lock dependency on `rb-readline` to remove deprecation warnings about fixnum (@majormoses)
+- metrics-jenkins.rb: timeout not timing out properly
 
 ### Changed
 - update changelog format location (@majormoses)
