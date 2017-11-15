@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.version                = SensuPluginsJenkins::Version::VER_STRING
 
   s.add_runtime_dependency 'sensu-plugin',        '~> 1.2'
-  s.add_runtime_dependency 'rest-client',         '1.8.0'
+  s.add_runtime_dependency 'rest-client',         '2.0.2'
   s.add_runtime_dependency 'jenkins_api_client',  '1.4.2'
   s.add_runtime_dependency 'chronic_duration',    '0.10.6'
   s.add_runtime_dependency 'rb-readline',         ['>= 0.5.5', '<= 1.0']

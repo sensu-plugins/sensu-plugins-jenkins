@@ -11,6 +11,7 @@ Which is based on [Keep A Changelog](http://keepachangelog.com/)
 
 ### Fixed
 - lock dependency on `rb-readline` to remove deprecation warnings about fixnum (@majormoses)
+- metrics-jenkins.rb: timeout not timing out properly
 
 ### Changed
 - update changelog format location (@majormoses)
