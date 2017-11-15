@@ -5,6 +5,8 @@ This CHANGELOG follows the format listed at [Our CHANGELOG Guidelines](https://g
 Which is based on [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+
+## [1.4.0] - 2017-11-15
 ### Added
 - Add Ruby 2.4.1 testing
 - metrics-jenkins.rb: Add --timeout parameter + report of the request duration
@@ -71,7 +73,8 @@ Which is based on [Keep A Changelog](http://keepachangelog.com/)
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.3.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.4.0...HEAD
+[1.4.0]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.3.0...1.4.0
 [1.3.0]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.0.0...1.1.0
