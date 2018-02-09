@@ -79,13 +79,23 @@ class JenkinsMetricsHealthChecker < Sensu::Plugin::Check::CLI
     https ||= config[:https] ? 'https' : 'http'
     testurl = "#{https}://#{config[:server]}:#{config[:port]}#{config[:uri]}"
 
-    r = if config[:https] && config[:insecure]
-          RestClient::Resource.new(testurl, timeout: config[:timeout], verify_ssl: false).get
-        elsif config[:https]
-          RestClient::Resource.new(testurl, timeout: config[:timeout], verify_ssl: true).get
-        else
-          RestClient::Resource.new(testurl, timeout: config[:timeout]).get
-        end
+    begin
+      r = if config[:https] && config[:insecure]
+            RestClient::Resource.new(testurl, timeout: config[:timeout], verify_ssl: false).get
+          elsif config[:https]
+            RestClient::Resource.new(testurl, timeout: config[:timeout], verify_ssl: true).get
+          else
+            RestClient::Resource.new(testurl, timeout: config[:timeout]).get
+          end
+    rescue RestClient::SSLCertificateNotVerified => e
+      critical "ssl verification failed: #{e.response}"
+    rescue RestClient::ServerBrokeConnection
+      critical "server broke the connection: #{e}"
+    rescue RestClient::RequestFailed => e
+      critical "request failed: #{e.response}"
+    rescue RestClient::ExceptionWithResponse => e
+      critical "failed to #{e.response}"
+    end
 
     if [200, 500].include? r.code
       healthchecks = JSON.parse(r)
