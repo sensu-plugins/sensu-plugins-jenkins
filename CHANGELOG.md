@@ -5,8 +5,10 @@ This CHANGELOG follows the format listed at [Our CHANGELOG Guidelines](https://g
 Which is based on [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+
+## [1.5.0] - 2018-02-17
 ### Added
-- check-jenkins-health.rb: Add --insecure parameter to allow self signed ssl certs
+- check-jenkins-health.rb: Add --insecure parameter to allow self signed ssl certs (@sabbene)
 
 ## [1.4.0] - 2017-11-15
 ### Added
@@ -75,7 +77,8 @@ Which is based on [Keep A Changelog](http://keepachangelog.com/)
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.4.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.5.0...HEAD
+[1.5.0]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.4.0...1.5.0
 [1.4.0]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.3.0...1.4.0
 [1.3.0]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.1.0...1.2.0
