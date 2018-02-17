@@ -79,11 +79,11 @@ class JenkinsMetricsHealthChecker < Sensu::Plugin::Check::CLI
     https ||= config[:https] ? 'https' : 'http'
     testurl = "#{https}://#{config[:server]}:#{config[:port]}#{config[:uri]}"
 
-    if config[:https] && config[:insecure]
-      r = RestClient::Resource.new(testurl, timeout: config[:timeout], verify_ssl: false).get
-    else
-      r = RestClient::Resource.new(testurl, timeout: config[:timeout]).get
-    end
+    r = if config[:https] && config[:insecure]
+          RestClient::Resource.new(testurl, timeout: config[:timeout], verify_ssl: false).get
+        else
+          RestClient::Resource.new(testurl, timeout: config[:timeout]).get
+        end
 
     if [200, 500].include? r.code
       healthchecks = JSON.parse(r)
