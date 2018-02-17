@@ -61,6 +61,13 @@ class JenkinsMetricsHealthChecker < Sensu::Plugin::Check::CLI
          description: 'Enabling https connections',
          default: false
 
+  option :insecure,
+         short: '-k',
+         long: '--insecure',
+         boolean: true,
+         description: 'Perform "insecure" SSL connections and transfers.',
+         default: false
+
   option :timeout,
          short: '-t SECS',
          long: '--timeout SECS',
@@ -70,7 +77,16 @@ class JenkinsMetricsHealthChecker < Sensu::Plugin::Check::CLI
 
   def run
     https ||= config[:https] ? 'https' : 'http'
-    r = RestClient::Resource.new("#{https}://#{config[:server]}:#{config[:port]}#{config[:uri]}", timeout: config[:timeout]).get
+    testurl = "#{https}://#{config[:server]}:#{config[:port]}#{config[:uri]}"
+
+    r = if config[:https] && config[:insecure]
+          RestClient::Resource.new(testurl, timeout: config[:timeout], verify_ssl: false).get
+	elsif config[:https]
+	  RestClient::Resource.new(testurl, timeout: config[:timeout], verify_ssl: true).get
+        else
+          RestClient::Resource.new(testurl, timeout: config[:timeout]).get
+        end
+
     if [200, 500].include? r.code
       healthchecks = JSON.parse(r)
       healthchecks.each do |healthcheck, healthcheck_hash_value|
