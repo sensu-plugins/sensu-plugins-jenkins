@@ -6,6 +6,10 @@ Which is based on [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
 
+## [1.4.1] - 2018-02-17
+### Added
+- check-jenkins-health.rb: Add --insecure parameter to allow self signed ssl certs
+
 ## [1.4.0] - 2017-11-15
 ### Added
 - Add Ruby 2.4.1 testing
