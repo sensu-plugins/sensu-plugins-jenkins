@@ -62,11 +62,11 @@ class JenkinsMetricsHealthChecker < Sensu::Plugin::Check::CLI
          default: false
 
   option :insecure,
-          short: '-k',
-          long: '--insecure',
-          boolean: true,
-          description: 'Perform "insecure" SSL connections and transfers.',
-          default: false
+         short: '-k',
+         long: '--insecure',
+         boolean: true,
+         description: 'Perform "insecure" SSL connections and transfers.',
+         default: false
 
   option :timeout,
          short: '-t SECS',
