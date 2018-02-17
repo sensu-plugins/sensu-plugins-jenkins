@@ -5,8 +5,6 @@ This CHANGELOG follows the format listed at [Our CHANGELOG Guidelines](https://g
 Which is based on [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
-
-## [1.4.1] - 2018-02-17
 ### Added
 - check-jenkins-health.rb: Add --insecure parameter to allow self signed ssl certs
 
