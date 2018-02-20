@@ -58,10 +58,25 @@ class JenkinsMetricsPingPongChecker < Sensu::Plugin::Check::CLI
          description: 'Enabling https connections',
          default: false
 
+  option :insecure,
+         short: '-k',
+         long: '--insecure',
+         boolean: true,
+         description: 'Perform "insecure" SSL connections and transfers.',
+         default: false
+
   def run
     https ||= config[:https] ? 'https' : 'http'
     testurl = "#{https}://#{config[:server]}:#{config[:port]}#{config[:uri]}"
-    r = RestClient::Resource.new(testurl, timeout: 5).get
+
+    r = if config[:https] && config[:insecure]
+	  RestClient::Resource.new(testurl, timeout: 5, verify_ssl: false).get
+        elsif config[:https]
+	  RestClient::Resource.new(testurl, timeout: 5, verify_ssl: true).get
+        else
+          RestClient::Resource.new(testurl, timeout: 5).get
+        end
+
     if r.code == 200 && r.body.include?('pong')
       ok 'Jenkins Service is up'
     else
