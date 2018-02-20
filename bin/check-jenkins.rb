@@ -70,9 +70,9 @@ class JenkinsMetricsPingPongChecker < Sensu::Plugin::Check::CLI
     testurl = "#{https}://#{config[:server]}:#{config[:port]}#{config[:uri]}"
 
     r = if config[:https] && config[:insecure]
-	  RestClient::Resource.new(testurl, timeout: 5, verify_ssl: false).get
+          RestClient::Resource.new(testurl, timeout: 5, verify_ssl: false).get
         elsif config[:https]
-	  RestClient::Resource.new(testurl, timeout: 5, verify_ssl: true).get
+          RestClient::Resource.new(testurl, timeout: 5, verify_ssl: true).get
         else
           RestClient::Resource.new(testurl, timeout: 5).get
         end

@@ -104,12 +104,12 @@ class JenkinsMetrics < Sensu::Plugin::Metric::CLI::Graphite
     begin
       https ||= config[:https] ? 'https' : 'http'
       testurl = "#{https}://#{config[:server]}:#{config[:port]}#{config[:uri]}"
-      
+
       r = if config[:https] && config[:insecure]
-	    RestClient::Resource.new(testurl, timeout: config[:timeout], verify_ssl: false).get
+            RestClient::Resource.new(testurl, timeout: config[:timeout], verify_ssl: false).get
           elsif config[:https]
             RestClient::Resource.new(testurl, timeout: config[:timeout], verify_ssl: true).get
-          else 
+          else
             RestClient::Resource.new(testurl, timeout: config[:timeout]).get
           end
 
