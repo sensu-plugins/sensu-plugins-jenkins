@@ -71,6 +71,13 @@ class JenkinsMetrics < Sensu::Plugin::Metric::CLI::Graphite
          description: 'Enabling https connections',
          default: false
 
+  option :insecure,
+         short: '-k',
+         long: '--insecure',
+         boolean: true,
+         description: 'Perform "insecure" SSL connections and transfers.',
+         default: false
+
   option :timeout,
          short: '-t SECONDS',
          long: '--timeout SECONDS',
@@ -96,7 +103,16 @@ class JenkinsMetrics < Sensu::Plugin::Metric::CLI::Graphite
     @stop = nil
     begin
       https ||= config[:https] ? 'https' : 'http'
-      r = RestClient::Resource.new("#{https}://#{config[:server]}:#{config[:port]}#{config[:uri]}", timeout: config[:timeout]).get
+      testurl = "#{https}://#{config[:server]}:#{config[:port]}#{config[:uri]}"
+
+      r = if config[:https] && config[:insecure]
+            RestClient::Resource.new(testurl, timeout: config[:timeout], verify_ssl: false).get
+          elsif config[:https]
+            RestClient::Resource.new(testurl, timeout: config[:timeout], verify_ssl: true).get
+          else
+            RestClient::Resource.new(testurl, timeout: config[:timeout]).get
+          end
+
       @stop = DateTime.now
       all_metrics = JSON.parse(r)
       metric_groups = all_metrics.keys - SKIP_ROOT_KEYS

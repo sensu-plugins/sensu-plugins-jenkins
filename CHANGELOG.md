@@ -5,6 +5,8 @@ This CHANGELOG follows the format listed at [Our CHANGELOG Guidelines](https://g
 Which is based on [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+- check-jenkins.rb: Add --insecure parameter to allow self signed ssl certs
+- metrics-jenkins.rb: Add --insecure parameter to allow self signed ssl certs
 
 ## [1.5.0] - 2018-02-17
 ### Added
