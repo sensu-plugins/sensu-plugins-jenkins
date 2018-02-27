@@ -5,6 +5,8 @@ This CHANGELOG follows the format listed at [Our CHANGELOG Guidelines](https://g
 Which is based on [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+### Fixed
+- check-jenkins-health.rb: added various rescues to prevent from bricking (@mdzidic) (@majormoses) (@yuri-zubov)
 ## [1.6.0] - 2018-02-21
 ### Added
 - check-jenkins.rb: Add --insecure parameter to allow self signed ssl certs
