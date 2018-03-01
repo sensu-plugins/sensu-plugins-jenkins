@@ -75,18 +75,30 @@ class JenkinsMetricsHealthChecker < Sensu::Plugin::Check::CLI
          proc: proc(&:to_i),
          default: 5
 
+  option :verbose,
+         short: '-v',
+         long: '--verbose',
+         boolean: true,
+         description: 'Return more verbose errors',
+         default: false
+
   def run
     https ||= config[:https] ? 'https' : 'http'
     testurl = "#{https}://#{config[:server]}:#{config[:port]}#{config[:uri]}"
 
     begin
       r = if config[:https] && config[:insecure]
-            RestClient::Resource.new(testurl, timeout: config[:timeout], verify_ssl: false).get
+            RestClient::Resource.new(testurl, timeout: config[:timeout], verify_ssl: false)
           elsif config[:https]
-            RestClient::Resource.new(testurl, timeout: config[:timeout], verify_ssl: true).get
+            RestClient::Resource.new(testurl, timeout: config[:timeout], verify_ssl: true)
           else
-            RestClient::Resource.new(testurl, timeout: config[:timeout]).get
+            RestClient::Resource.new(testurl, timeout: config[:timeout])
           end
+      if config[:verbose]
+        r.get
+      else
+        r.get { |response| response }
+      end
     rescue RestClient::SSLCertificateNotVerified => e
       critical "ssl verification failed: #{e.response}"
     rescue RestClient::ServerBrokeConnection
@@ -96,8 +108,9 @@ class JenkinsMetricsHealthChecker < Sensu::Plugin::Check::CLI
     rescue RestClient::ExceptionWithResponse => e
       critical "failed to #{e.response}"
     end
-
-    if [200, 500].include? r.code
+    # if you have a 500 it will only reach here if you are not specifying `--verbose`
+    # as it will be caught by the rescue above
+    if [200, 500].include?(r.code)
       healthchecks = JSON.parse(r)
       healthchecks.each do |healthcheck, healthcheck_hash_value|
         if healthcheck_hash_value['healthy'] != true

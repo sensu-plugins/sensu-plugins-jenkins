@@ -8,6 +8,9 @@ Which is based on [Keep A Changelog](http://keepachangelog.com/)
 ### Fixed
 - check-jenkins-health.rb: added various rescues to prevent from bricking (@mdzidic) (@majormoses)
 
+### Added
+- check-jenkins-health.rb: added `--versbose` option to allow user to control the output returned when you have an error (@majormoses)
+
 ## [1.6.0] - 2018-02-21
 ### Added
 - check-jenkins.rb: Add --insecure parameter to allow self signed ssl certs
