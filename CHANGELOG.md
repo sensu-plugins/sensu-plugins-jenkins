@@ -6,6 +6,12 @@ Which is based on [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
 
+## [1.6.2] - 2018-03-01
+### Fixed
+- check-jenkins-health.rb: fixed bug introduced by #25 (@majormoses)
+
+### Changed
+
 ## [1.6.1] - 2018-03-01
 ### Fixed
 - check-jenkins-health.rb: added various rescues to prevent from bricking (@mdzidic) (@majormoses)
@@ -89,7 +95,8 @@ Which is based on [Keep A Changelog](http://keepachangelog.com/)
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.6.1...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.6.2...HEAD
+[1.6.2]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.6.1...1.6.2
 [1.6.1]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.6.0...1.6.1
 [1.6.0]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.5.0...1.6.0
 [1.5.0]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.4.0...1.5.0
