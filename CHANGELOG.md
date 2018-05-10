@@ -5,6 +5,7 @@ This CHANGELOG follows the format listed at [Our CHANGELOG Guidelines](https://g
 Which is based on [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+- check-jenkins-build-time.rb: add `--check-build-duration` mode to check duration (@CoRfr)
 
 ## [1.6.2] - 2018-03-01
 ### Fixed

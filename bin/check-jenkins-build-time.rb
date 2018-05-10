@@ -4,7 +4,9 @@
 #
 # DESCRIPTION:
 #   Alert if the last successful build timestamp of a jenkins job is older than
-#   a specified time duration OR not within a specific daily time window.
+#   a specified time duration
+#   OR not within a specific daily time window
+#   OR if the total build duration exceeds a specified duration.
 #
 # OUTPUT:
 #   plain text
@@ -18,6 +20,8 @@
 #   -j parameter should be a comma-separated list of JOB_NAME=TIME_EXPRESSION
 #   where TIME_EXPRESSION is either a relative time duration from now (30m, 1h) or
 #   a daily time window (1am-2am, 1:01am-2:01am), without spaces.
+#
+#   --check-build-duration to check the last build duration for a job.
 #
 # DEPENDENCIES:
 #   gem: sensu-plugin
@@ -50,6 +54,11 @@ class JenkinsBuildTime < Sensu::Plugin::Check::CLI
          long: '--jobs JOB_NAME=TIME_EXPRESSION,[JOB_NAME=TIME_EXPRESSION]',
          required: true
 
+  option :check_build_duration,
+         description: 'Mode to check the build duration instead of the last occurence of a build',
+         short: '-d',
+         long: '--[no-]check-build-duration'
+
   option :username,
          description: 'Username for Jenkins instance',
          short: '-U USERNAME',
@@ -68,24 +77,32 @@ class JenkinsBuildTime < Sensu::Plugin::Check::CLI
     critical_jobs = []
 
     jobs = parse_jobs_param
+    check_build_duration = config[:check_build_duration] || false
 
     jobs.each do |job_name, time_expression|
       begin
-        last_build_time = build_time(job_name, last_successful_build_number(job_name))
+        build_number = last_successful_build_number(job_name)
+        last_build_time = build_time(job_name, build_number)
+        last_build_duration = build_duration(job_name, build_number)
       rescue
         critical "Error looking up Jenkins job: #{job_name}"
       end
 
-      if time_expression_is_window?(time_expression)
+      if check_build_duration
+        unless time_within_allowed_build_duration?(last_build_duration,
+                                                   parse_duration_seconds(time_expression))
+          critical_jobs << critical_message_build_duration(job_name, last_build_time, last_build_duration, time_expression)
+        end
+      elsif time_expression_is_window?(time_expression)
         unless time_within_window?(last_build_time,
                                    parse_window_start(time_expression),
                                    parse_window_end(time_expression))
-          critical_jobs << critical_message(job_name, last_build_time, time_expression)
+          critical_jobs << critical_message(job_name, last_build_time, last_build_duration, time_expression)
         end
       else
         unless time_within_allowed_duration?(last_build_time,
                                              parse_duration_seconds(time_expression))
-          critical_jobs << critical_message(job_name, last_build_time, time_expression)
+          critical_jobs << critical_message(job_name, last_build_time, last_build_duration, time_expression)
         end
       end
     end
@@ -104,9 +121,21 @@ class JenkinsBuildTime < Sensu::Plugin::Check::CLI
     jenkins.job.list_details(job_name)['lastSuccessfulBuild']['number']
   end
 
+  def build_details(job_name, build_number)
+    # Cache the results
+    @build_details ||= {}
+    @build_details[job_name] ||= {}
+    @build_details[job_name][build_number] ||= jenkins.job.get_build_details(job_name, build_number)
+  end
+
   def build_time(job_name, build_number)
     # Jenkins expresses timestamps in epoch millis
-    Time.at(jenkins.job.get_build_details(job_name, build_number)['timestamp'] / 1000)
+    Time.at(build_details(job_name, build_number)['timestamp'] / 1000)
+  end
+
+  def build_duration(job_name, build_number)
+    # Jenkins expresses timestamps in epoch millis, convert it to seconds
+    build_details(job_name, build_number)['duration'] / 1000
   end
 
   def time_expression_is_window?(time_expression)
@@ -148,8 +177,16 @@ class JenkinsBuildTime < Sensu::Plugin::Check::CLI
     time > (@now - duration_seconds)
   end
 
-  def critical_message(job_name, last_build_time, time_expression)
-    "#{job_name}: last built at #{last_build_time}, not within allowed time: #{time_expression}"
+  def time_within_allowed_build_duration?(build_duration_seconds, duration_seconds)
+    build_duration_seconds <= duration_seconds
+  end
+
+  def critical_message_build_duration(job_name, last_build_time, duration_seconds, time_expression)
+    "#{job_name}: last built at #{last_build_time} (#{ChronicDuration.output(duration_seconds)}) exceeded max duration (#{time_expression})"
+  end
+
+  def critical_message(job_name, last_build_time, duration_seconds, time_expression)
+    "#{job_name}: last built at #{last_build_time} (#{ChronicDuration.output(duration_seconds)}), not within allowed time: #{time_expression}"
   end
 
   def parse_jobs_param
