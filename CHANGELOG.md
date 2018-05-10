@@ -6,6 +6,7 @@ Which is based on [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
 - check-jenkins-build-time.rb: add `--check-build-duration` mode to check duration (@CoRfr)
+- check-jenkins.rb: add `--timeout` option to specify timeout instead of the hardcoded 5s (@CoRfr)
 
 ## [1.6.2] - 2018-03-01
 ### Fixed
