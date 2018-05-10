@@ -65,16 +65,23 @@ class JenkinsMetricsPingPongChecker < Sensu::Plugin::Check::CLI
          description: 'Perform "insecure" SSL connections and transfers.',
          default: false
 
+  option :timeout,
+         short: '-t SECONDS',
+         long: '--timeout SECONDS',
+         description: 'Timeout for REST request',
+         proc: proc(&:to_i),
+         default: 5
+
   def run
     https ||= config[:https] ? 'https' : 'http'
     testurl = "#{https}://#{config[:server]}:#{config[:port]}#{config[:uri]}"
 
     r = if config[:https] && config[:insecure]
-          RestClient::Resource.new(testurl, timeout: 5, verify_ssl: false).get
+          RestClient::Resource.new(testurl, timeout: config[:timeout], verify_ssl: false).get
         elsif config[:https]
-          RestClient::Resource.new(testurl, timeout: 5, verify_ssl: true).get
+          RestClient::Resource.new(testurl, timeout: config[:timeout], verify_ssl: true).get
         else
-          RestClient::Resource.new(testurl, timeout: 5).get
+          RestClient::Resource.new(testurl, timeout: config[:timeout]).get
         end
 
     if r.code == 200 && r.body.include?('pong')
