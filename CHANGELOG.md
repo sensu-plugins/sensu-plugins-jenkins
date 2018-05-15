@@ -5,6 +5,9 @@ This CHANGELOG follows the format listed at [Our CHANGELOG Guidelines](https://g
 Which is based on [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+
+## [1.7.0] - 2018-05-14
+### Added
 - check-jenkins-build-time.rb: add `--check-build-duration` mode to check duration (@CoRfr)
 - check-jenkins.rb: add `--timeout` option to specify timeout instead of the hardcoded 5s (@CoRfr)
 
@@ -97,7 +100,8 @@ Which is based on [Keep A Changelog](http://keepachangelog.com/)
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.6.2...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.7.0...HEAD
+[1.7.0]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.6.2...1.7.0
 [1.6.2]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.6.1...1.6.2
 [1.6.1]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.6.0...1.6.1
 [1.6.0]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.5.0...1.6.0
