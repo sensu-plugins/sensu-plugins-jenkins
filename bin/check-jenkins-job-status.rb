@@ -110,9 +110,10 @@ class JenkinsJobChecker < Sensu::Plugin::Check::CLI
     status = jenkins_api_client.job.get_current_build_status(job_name)
     # If the job is currently running, get the status of the last build instead
     if status == 'running'
-      last_build = jenkins_api_client.job.get_current_build_number(job_name) - 1
-      build = jenkins_api_client.job.get_build_details(job_name, last_build)
-      status = build['result'].downcase
+      build = jenkins_api_client.job.get_build_details(job_name, 'lastCompletedBuild')
+      if build && build['result']
+        status = build['result'].downcase
+      end
     end
     status
   rescue
