@@ -5,6 +5,8 @@ This CHANGELOG follows the format listed at [Our CHANGELOG Guidelines](https://g
 Which is based on [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+### Fixed
+- check-jenkins-job-status.rb: fix issue when multiple builds are currently running (@CoRfr)
 
 ## [1.7.0] - 2018-05-14
 ### Added
