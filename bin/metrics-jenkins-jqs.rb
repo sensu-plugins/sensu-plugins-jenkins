@@ -75,7 +75,7 @@ class JenkinsJQSMetrics < Sensu::Plugin::Metric::CLI::Graphite
     begin
       https ||= config[:https] ? 'https' : 'http'
       r = RestClient::Resource.new("#{https}://#{config[:server]}:#{config[:port]}#{config[:uri]}", timeout: 5).get
-      all_metrics = JSON.parse(r)
+      all_metrics = ::JSON.parse(r)
       metric_groups = all_metrics.keys - SKIP_ROOT_KEYS
       metric_groups.each do |metric_groups_key|
         all_metrics[metric_groups_key].each do |metric_key, metric_value|

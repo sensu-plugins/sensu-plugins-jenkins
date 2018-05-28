@@ -114,7 +114,7 @@ class JenkinsMetrics < Sensu::Plugin::Metric::CLI::Graphite
           end
 
       @stop = DateTime.now
-      all_metrics = JSON.parse(r)
+      all_metrics = ::JSON.parse(r)
       metric_groups = all_metrics.keys - SKIP_ROOT_KEYS
       metric_groups.each do |metric_groups_key|
         all_metrics[metric_groups_key].each do |metric_key, metric_value|

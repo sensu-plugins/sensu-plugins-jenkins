@@ -111,7 +111,7 @@ class JenkinsMetricsHealthChecker < Sensu::Plugin::Check::CLI
     # if you have a 500 it will only reach here if you are not specifying `--verbose`
     # as it will be caught by the rescue above
     if [200, 500].include?(r.code)
-      healthchecks = JSON.parse(r)
+      healthchecks = ::JSON.parse(r)
       healthchecks.each do |healthcheck, healthcheck_hash_value|
         if healthcheck_hash_value['healthy'] != true
           critical "Jenkins health check '#{healthcheck}' reported unhealthy state. Message: #{healthcheck_hash_value['message']}"
