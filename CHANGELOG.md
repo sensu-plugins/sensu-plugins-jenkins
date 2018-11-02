@@ -5,6 +5,8 @@ This CHANGELOG follows the format listed at [Our CHANGELOG Guidelines](https://g
 Which is based on [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+
+## [2.0.0] - 2018-11-01
 ### Breaking Changes
 - bumped dependency of `sensu-plugin` to `>= 2.5 && < 3.0` you can read about it [here](https://github.com/sensu-plugins/sensu-plugin/blob/master/CHANGELOG.md#v145---2017-03-07)
 
@@ -106,7 +108,8 @@ Which is based on [Keep A Changelog](http://keepachangelog.com/)
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.7.1...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/2.0.0...HEAD
+[2.0.0]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.7.1...2.0.0
 [1.7.1]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.7.0...1.7.1
 [1.7.0]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.6.2...1.7.0
 [1.6.2]: https://github.com/sensu-plugins/sensu-plugins-jenkins/compare/1.6.1...1.6.2
